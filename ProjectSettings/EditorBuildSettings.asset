@@ -17,6 +17,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MiniGame_1P.unity
     guid: d1d477255bbe9a743aab7bac84fa3208
+  - enabled: 1
+    path: Assets/Scenes/PedroTestGamePlayScreen.unity
+    guid: 93fe499f40ec4484d954d634e6aa8662
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
