@@ -1,52 +1,55 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PersistentUI : MonoBehaviour
 {
-    public static PersistentUI Instance;
+    public static PersistentUI instance;
 
-    private bool canPause = true;
+    [Header("Scene Return")]
+    [SerializeField] private string lastGameplayScene; // optional: visible for debugging in inspector
 
-    /*
-    void Awake()
+    private void Awake()
     {
-        if (Instance != null && Instance != this)
+        // Singleton + persistence (ONLY here)
+        if (instance != null && instance != this)
         {
             Destroy(gameObject);
             return;
         }
 
-        Instance = this;
-        DontDestroyOnLoad(this.gameObject);
+        instance = this;
+        DontDestroyOnLoad(gameObject);
     }
-    */
 
-    private void Awake()
+    // --- Scene loading helpers ---
+
+    public void LoadScene(string sceneName)
     {
-        if(Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(this.gameObject);
-        }
-        else
-        {
-            Destroy(this.gameObject);
-        }
+        SceneManager.LoadScene(sceneName);
     }
 
+    // Call this when launching a minigame FROM gameplay
+    public void LoadMinigame(string minigameSceneName)
+    {
+        lastGameplayScene = SceneManager.GetActiveScene().name;
+        SceneManager.LoadScene(minigameSceneName);
+    }
+
+    // Call this from the minigame when it ends
+    public void ReturnToLastGameplayScene()
+    {
+        if (string.IsNullOrEmpty(lastGameplayScene))
+        {
+            Debug.LogWarning("No last gameplay scene stored. Return aborted.", this);
+            return;
+        }
+
+        SceneManager.LoadScene(lastGameplayScene);
+    }
+
+    // Optional debug hook
     public void OnButtonClick()
     {
         Debug.Log("Button was clicked!");
-    }
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        DontDestroyOnLoad(this);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
