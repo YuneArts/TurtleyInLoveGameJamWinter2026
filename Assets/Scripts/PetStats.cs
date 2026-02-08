@@ -9,7 +9,7 @@ public enum TrainingType {TrainSpeed, TrainPower, TrainStamina, None}
 public class PetStats : MonoBehaviour
 {
     [SerializeField] private int speed, power, stamina;
-    [SerializeField] private bool speedTrain, powerTrain, staminaTrain;
+    //[SerializeField] private bool speedTrain, powerTrain, staminaTrain;
     [SerializeField] private Text spdText, powText, staText;
     private TrainingType trType;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -29,14 +29,6 @@ public class PetStats : MonoBehaviour
         speed += spd;
         trType = TrainingType.TrainSpeed;
         Debug.Log($"Speed = {speed}");
-        StartCoroutine(StatGainPopup());
-    }
-
-    private void IncreasePower(int pwr)
-    {
-        power += pwr;
-        trType = TrainingType.TrainPower;
-        Debug.Log($"Power = {power}");
         StartCoroutine(StatGainPopup());
     }
 

@@ -8,7 +8,8 @@ public class DataHolder : MonoBehaviour
 
     public int petSpeed, petPower, petStamina;
 
-    public bool isPlaying;
+    public bool isPlaying, powTrain, speedTrain, staTrain;
+    //[SerializeField] private bool speedTrain, powTrain, staTrain;
 
     private void Awake()
     {
@@ -22,18 +23,12 @@ public class DataHolder : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
-    void Start()
-    {
-        
-    }
 
-    void Update()
+    public void ResetVariables()
     {
-        
-    }
-
-    private void StartingPetStats()
-    {
-        
+        isPlaying = false;
+        powTrain = false;
+        speedTrain = false;
+        staTrain = false;
     }
 }

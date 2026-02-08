@@ -1,23 +1,24 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 
 public class PowerMinigameBar : MonoBehaviour
 {
     [SerializeField] private Transform pointA, pointB;
     [SerializeField] private RectTransform safeZone;
-    //private bool isPlaying;
     public float moveSpeed;
-
     private float direction;
     private RectTransform barTransform;
     private Vector3 targetPoisition;
+    //Add references to results screen. Will start disabled in scene editor and be enabled based on result in CheckResult function.
     void Start()
     {
         barTransform = GetComponent<RectTransform>();
         targetPoisition = pointB.position;
         ShufflePowerMinigame();
         DataHolder.Instance.isPlaying = true;
+        DataHolder.Instance.powTrain = true;
     }
 
     void Update()
@@ -45,6 +46,7 @@ public class PowerMinigameBar : MonoBehaviour
         {
             StartCoroutine(CheckSuccess());
         }
+        Debug.Log("Button Clicked.");
     }
 
 
@@ -61,14 +63,26 @@ public class PowerMinigameBar : MonoBehaviour
 
         if (RectTransformUtility.RectangleContainsScreenPoint(safeZone, barTransform.position, null))
         {
-            DataHolder.Instance.petPower += 2;
-            Debug.Log("Success! +2 Power");
+            IncreasePower(2);
+            //Add results screen once we get that asset in. Can be referenced in here.
         }
         else
         {
-            DataHolder.Instance.petPower += 1;
-            Debug.Log("Failed. +1 Power");
+            IncreasePower(1);
+            //Add result screen once we get that asset in. Can be referenced in here.
         }
+        
+        PersistentUI.instance.UpdateStatsUI();
+
+        yield return new WaitForSeconds(3f);
+
+        PersistentUI.instance.LoadScene("MainPetScreen");
         yield return null;
     } 
+
+    private void IncreasePower(int pwr)
+    {
+        DataHolder.Instance.petPower += pwr;
+        //Debug.Log($"Power = {DataHolder.Instance.petPower}");
+    }
 }

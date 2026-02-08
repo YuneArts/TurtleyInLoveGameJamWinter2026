@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using TMPro;
 
 public class PersistentUI : MonoBehaviour
 {
@@ -7,6 +9,8 @@ public class PersistentUI : MonoBehaviour
 
     [Header("Scene Return")]
     [SerializeField] private string lastGameplayScene; // optional: visible for debugging in inspector
+
+    [SerializeField] private TextMeshProUGUI powerNumber; //Add Speed and Stamina later once those numbers are in the UI.
 
     private void Awake()
     {
@@ -51,5 +55,26 @@ public class PersistentUI : MonoBehaviour
     public void OnButtonClick()
     {
         Debug.Log("Button was clicked!");
+    }
+
+    public void UpdateStatsUI()
+    {
+        if(DataHolder.Instance.powTrain)
+        {
+            powerNumber.text = $"{DataHolder.Instance.petPower}";
+            Debug.Log("Power UI updated.");
+        }
+        else if(DataHolder.Instance.speedTrain)
+        {
+            Debug.Log("Speed UI updated.");
+        }
+        else if(DataHolder.Instance.staTrain)
+        {
+            Debug.Log("Stamina UI updated.");
+        }
+        else
+        {
+            Debug.Log("No training detected. UI will not be updated.");
+        }
     }
 }
