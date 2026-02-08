@@ -35,4 +35,9 @@ public class SceneReturnManager : MonoBehaviour
 
         SceneManager.LoadScene(LastGameplayScene);
     }
+
+    public void LoadScene(string sceneName)
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene(sceneName);
+    }
 }
