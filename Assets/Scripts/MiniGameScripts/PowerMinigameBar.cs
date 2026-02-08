@@ -6,7 +6,7 @@ public class PowerMinigameBar : MonoBehaviour
 {
     [SerializeField] private Transform pointA, pointB;
     [SerializeField] private RectTransform safeZone;
-    private bool isPlaying;
+    //private bool isPlaying;
     public float moveSpeed;
 
     private float direction;
@@ -17,12 +17,12 @@ public class PowerMinigameBar : MonoBehaviour
         barTransform = GetComponent<RectTransform>();
         targetPoisition = pointB.position;
         ShufflePowerMinigame();
-        isPlaying = true;
+        DataHolder.Instance.isPlaying = true;
     }
 
     void Update()
     {
-        if (isPlaying)
+        if (DataHolder.Instance.isPlaying)
         {
             barTransform.position = Vector3.MoveTowards(barTransform.position, targetPoisition, moveSpeed * Time.deltaTime);
 
@@ -41,7 +41,7 @@ public class PowerMinigameBar : MonoBehaviour
 
     public void PowerButtonClick()
     {
-        if (isPlaying)
+        if (DataHolder.Instance.isPlaying)
         {
             StartCoroutine(CheckSuccess());
         }
@@ -57,17 +57,18 @@ public class PowerMinigameBar : MonoBehaviour
 
     private IEnumerator CheckSuccess()
     {
-        isPlaying = false;
+        DataHolder.Instance.isPlaying = false;
 
         if (RectTransformUtility.RectangleContainsScreenPoint(safeZone, barTransform.position, null))
         {
+            DataHolder.Instance.petPower += 2;
             Debug.Log("Success! +2 Power");
         }
         else
         {
+            DataHolder.Instance.petPower += 1;
             Debug.Log("Failed. +1 Power");
         }
         yield return null;
-    }
-    
+    } 
 }
