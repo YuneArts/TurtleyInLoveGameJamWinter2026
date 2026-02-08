@@ -2,21 +2,35 @@ using UnityEngine;
 
 public class PersistentUI : MonoBehaviour
 {
-    [SerializeField]
-    public static PersistentUI instance;
+    public static PersistentUI Instance;
 
     private bool canPause = true;
 
+    /*
     void Awake()
     {
-        if (instance != null && instance != this)
+        if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
             return;
         }
 
-        instance = this;
-        DontDestroyOnLoad(gameObject);
+        Instance = this;
+        DontDestroyOnLoad(this.gameObject);
+    }
+    */
+
+    private void Awake()
+    {
+        if(Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
     }
 
     public void OnButtonClick()
