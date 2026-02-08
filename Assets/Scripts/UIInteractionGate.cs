@@ -36,6 +36,7 @@ public class UIInteractionGate : MonoBehaviour
         ApplyForScene(scene.name);
     }
 
+    // Adjusts the menu's interactivity based on the scene name.
     private void ApplyForScene(string sceneName)
     {
         if (menuCanvasGroup == null) return;
@@ -49,15 +50,12 @@ public class UIInteractionGate : MonoBehaviour
         SetMenuInteractable(shouldInteract);
     }
 
-
+    // Sets the interactability of the menu.
     private void SetMenuInteractable(bool interactable)
     {
         if (menuCanvasGroup == null) return;
 
         menuCanvasGroup.interactable = interactable;
         menuCanvasGroup.blocksRaycasts = interactable;
-
-        // Optional: dim it during main menu but keep visible
-        // menuCanvasGroup.alpha = interactable ? 1f : 0.6f;
     }
 }
