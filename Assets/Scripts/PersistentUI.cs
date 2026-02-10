@@ -10,7 +10,7 @@ public class PersistentUI : MonoBehaviour
     [Header("Scene Return")]
     [SerializeField] private string lastGameplayScene; // optional: visible for debugging in inspector
 
-    [SerializeField] private TextMeshProUGUI powerNumber; //Add Speed and Stamina later once those numbers are in the UI.
+    [SerializeField] private TextMeshProUGUI powerNumber,speedNumber, staminaNumber; //Add Speed and Stamina later once those numbers are in the UI.
 
     private void Awake()
     {
@@ -66,10 +66,12 @@ public class PersistentUI : MonoBehaviour
         }
         else if(DataHolder.Instance.speedTrain)
         {
+            speedNumber.text = $"{DataHolder.Instance.petSpeed}";
             Debug.Log("Speed UI updated.");
         }
         else if(DataHolder.Instance.staTrain)
         {
+            staminaNumber.text = $"{DataHolder.Instance.petStamina}";
             Debug.Log("Stamina UI updated.");
         }
         else

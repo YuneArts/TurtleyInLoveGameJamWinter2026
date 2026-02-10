@@ -70,7 +70,39 @@ public class StaminaMiniGameMovement : MonoBehaviour
             block.UpdateBlockDirection(moveValue);
             return false;
         }
-
         return true;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.CompareTag("Finish"))
+        {
+            Debug.Log("Touched Finish Trigger");
+
+            if(DataHolder.Instance.isPlaying)
+            {
+                StartCoroutine(CompleteStaminaMinigame());
+            }
+        }
+    }
+
+    IEnumerator CompleteStaminaMinigame()
+    {
+        DataHolder.Instance.isPlaying = false;
+
+        IncreaseStamina(2);
+
+        PersistentUI.instance.UpdateStatsUI();
+
+        yield return new WaitForSeconds(3f);
+
+        PersistentUI.instance.LoadScene("MainPetScreen");
+        yield return null;
+    }
+
+    private void IncreaseStamina(int stam)
+    {
+        DataHolder.Instance.petStamina += stam;
+        Debug.Log($"Stamina = {DataHolder.Instance.petStamina}");
     }
 }

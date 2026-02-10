@@ -3333,6 +3333,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   lastGameplayScene: 
   powerNumber: {fileID: 6725803814717531831}
+  speedNumber: {fileID: 8885480143165888985}
+  staminaNumber: {fileID: 2403515177377736299}
 --- !u!114 &1533106964915169651
 MonoBehaviour:
   m_ObjectHideFlags: 0
