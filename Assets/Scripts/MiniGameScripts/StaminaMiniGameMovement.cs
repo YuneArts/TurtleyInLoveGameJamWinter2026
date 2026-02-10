@@ -6,28 +6,17 @@ using UnityEngine.InputSystem;
 public class StaminaMiniGameMovement : MonoBehaviour
 {
     [SerializeField] private float moveSpeed;
-    [SerializeField] private LayerMask nonwalkLayer;
+    [SerializeField] private LayerMask nonwalkLayer, pushLayer;
     [SerializeField] private PlayerInput playerInput;
     private InputAction moveInput;
     public bool isMoving, levelComplete;
     private Vector2 moveValue;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
 
     private void Awake()
     {
         moveInput = playerInput.actions.FindAction("Movement");
     }
 
-    private void OnDisable()
-    {
-        
-    }
-
-    // Update is called once per frame
     private void Update()
     {
         if(!levelComplete)
@@ -46,8 +35,7 @@ public class StaminaMiniGameMovement : MonoBehaviour
                     {
                         StartCoroutine(MoveTile(targetPos));
                     }
-                }
-                
+                } 
             }
         }
     }
@@ -69,8 +57,17 @@ public class StaminaMiniGameMovement : MonoBehaviour
 
     private bool isWalkable(Vector3 targetPos)
     {
+        Collider2D blockCheck = Physics2D.OverlapCircle(targetPos, 0.2f, pushLayer);
+
         if(Physics2D.OverlapCircle(targetPos, 0.2f, nonwalkLayer) != null)
         {
+            return false;
+        }
+        else if(Physics2D.OverlapCircle(targetPos, 0.2f, pushLayer) != null)
+        {
+            StaminaBlocks block = blockCheck.GetComponent<StaminaBlocks>();
+            Debug.Log($"Obtained " + block.name + " on " + blockCheck.gameObject.name);
+            block.UpdateBlockDirection(moveValue);
             return false;
         }
 
