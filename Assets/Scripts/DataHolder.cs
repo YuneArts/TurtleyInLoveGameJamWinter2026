@@ -9,7 +9,6 @@ public class DataHolder : MonoBehaviour
     public int petSpeed, petPower, petStamina;
 
     public bool isPlaying, powTrain, speedTrain, staTrain;
-    //[SerializeField] private bool speedTrain, powTrain, staTrain;
 
     private void Awake()
     {
