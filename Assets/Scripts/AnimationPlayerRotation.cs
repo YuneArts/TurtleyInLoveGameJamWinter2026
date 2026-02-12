@@ -11,7 +11,7 @@ public class AnimationPlayerRotation : MonoBehaviour
     void Start()
     {
         moveInput = GetComponent<PlayerInput>().actions.FindAction("Movement");
-        animator = GetComponent<Animator>()
+        animator = GetComponent<Animator>();
     }
     public void FacingDirection(InputAction moveInput)
     {
