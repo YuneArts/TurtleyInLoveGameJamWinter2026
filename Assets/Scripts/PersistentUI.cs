@@ -10,7 +10,7 @@ public class PersistentUI : MonoBehaviour
     [Header("Scene Return")]
     [SerializeField] private string lastGameplayScene; // optional: visible for debugging in inspector
 
-    [SerializeField] private TextMeshProUGUI powerNumber,speedNumber, staminaNumber; //Add Speed and Stamina later once those numbers are in the UI.
+    [SerializeField] private TextMeshProUGUI powerNumber,speedNumber, staminaNumber; //Add TrainingSession text to hook up to UpdateTrainingSession function.
 
     private void Awake()
     {
@@ -78,5 +78,10 @@ public class PersistentUI : MonoBehaviour
         {
             Debug.Log("No training detected. UI will not be updated.");
         }
+    }
+
+    public void ReduceTrainSessions()
+    {
+        //sessionAmount.text = $"Days left until race: {DataHolder.Instance.trainSessions}";
     }
 }

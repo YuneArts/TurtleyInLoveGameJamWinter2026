@@ -6,9 +6,9 @@ public class DataHolder : MonoBehaviour
 {
     public static DataHolder Instance;
 
-    public int petSpeed, petPower, petStamina;
+    public int petSpeed, petPower, petStamina, trainSessions;
 
-    public bool isPlaying, powTrain, speedTrain, staTrain;
+    public bool isPlaying, isRacing, powTrain, speedTrain, staTrain;
 
     private void Awake()
     {
@@ -26,8 +26,15 @@ public class DataHolder : MonoBehaviour
     public void ResetVariables()
     {
         isPlaying = false;
+        isRacing = false;
         powTrain = false;
         speedTrain = false;
         staTrain = false;
+    }
+
+    public void ReduceTrainSessions()
+    {
+        trainSessions -= 1;
+        //PersistentUI.instance.UpdateSessionCount();
     }
 }
