@@ -8,7 +8,7 @@ public class PowerMinigameBar : MonoBehaviour
     [SerializeField] private Transform pointA, pointB;
     [SerializeField] private RectTransform safeZone;
     public float moveSpeed;
-    private float direction;
+    //private float direction;
     private RectTransform barTransform;
     private Vector3 targetPoisition;
     //Add references to results screen. Will start disabled in scene editor and be enabled based on result in CheckResult function.
@@ -30,12 +30,12 @@ public class PowerMinigameBar : MonoBehaviour
             if (Vector3.Distance(barTransform.position, pointA.position) < 0.1f)
             {
                 targetPoisition = pointB.position;
-                direction = 1f;
+                //direction = 1f;
             }
             else if (Vector3.Distance(barTransform.position, pointB.position) < 0.1f)
             {
                 targetPoisition = pointA.position;
-                direction = -1f;
+                //direction = -1f;
             }
         }
     }

@@ -2,22 +2,30 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
 using UnityEngine.UI;
+using TMPro;
 
 public class RacePlayerControls : MonoBehaviour
 {
     private int speed, power, stamina;
     [SerializeField] private PlayerInput raceInput;
     private Vector2 moveDirection;
-    [SerializeField] private bool raceStart, isDashing;
-    //private float gravity = -9.81f;
+    private bool raceStart, isDashing;
 
     [SerializeField] private Rigidbody2D rb2d;
     
-    [SerializeField] private float jumpHeight, castDistance;
-    [SerializeField] private float dashStamina, maxStamina, lastDirection;
+    [SerializeField] private float jumpHeight;
+    private float castDistance = 0.5f;
+
+    private float dashStamina; 
+    private float maxStamina = 100f; 
+    
+    private float lastDirection;
+    
     [SerializeField] private Image staminaBar;
     [SerializeField] private LayerMask floorLayer;
     [SerializeField] private Vector2 boxSize;
+    private float raceTime;
+    [SerializeField] private TextMeshProUGUI timerText;
 
     void Start()
     {
@@ -143,5 +151,10 @@ public class RacePlayerControls : MonoBehaviour
     private void UseDashStamina()
     {
         dashStamina = 0f;
+    }
+
+    private void UpdateRaceTimer()
+    {
+        raceTime += Time.deltaTime;
     }
 }
