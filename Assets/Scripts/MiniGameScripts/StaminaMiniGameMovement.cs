@@ -93,6 +93,7 @@ public class StaminaMiniGameMovement : MonoBehaviour
         IncreaseStamina(2);
 
         PersistentUI.instance.UpdateStatsUI();
+        DataHolder.Instance.ReduceTrainSessions();
 
         yield return new WaitForSeconds(3f);
 

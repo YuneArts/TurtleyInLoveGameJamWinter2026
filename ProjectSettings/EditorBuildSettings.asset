@@ -20,6 +20,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MiniGames/MiniGame_Speed.unity
     guid: 00c67ac0a7d538e4a903e055970bff6b
+  - enabled: 1
+    path: Assets/Scenes/PetRace.unity
+    guid: 84e4719ef2b840f4ba3922326563c078
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

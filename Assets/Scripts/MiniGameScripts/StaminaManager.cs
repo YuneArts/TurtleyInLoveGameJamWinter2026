@@ -8,6 +8,7 @@ public class StaminaManager : MonoBehaviour
         DataHolder.Instance.isPlaying = true;
         DataHolder.Instance.staTrain = true;
         ChooseLevel();
+        PersistentUI.instance.ToggleStatsHUD();
     }
 
     private void ChooseLevel()

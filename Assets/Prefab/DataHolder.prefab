@@ -48,7 +48,7 @@ MonoBehaviour:
   petSpeed: 1
   petPower: 1
   petStamina: 1
-  trainSessions: 0
+  trainSessions: 5
   isPlaying: 0
   isRacing: 0
   powTrain: 0

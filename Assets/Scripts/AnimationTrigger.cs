@@ -8,7 +8,14 @@ public class AnimationTrigger : MonoBehaviour
 
     public void SlideIn()
     {
-        animator.SetTrigger("SlideIn");
+        if(DataHolder.Instance.trainSessions > 0)
+        {
+            animator.SetTrigger("SlideIn");
+        }
+        else
+        {
+            PersistentUI.instance.ChangeTrainText();
+        }  
     }
 
     public void SlideOut()

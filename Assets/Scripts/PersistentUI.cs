@@ -10,7 +10,9 @@ public class PersistentUI : MonoBehaviour
     [Header("Scene Return")]
     [SerializeField] private string lastGameplayScene; // optional: visible for debugging in inspector
 
-    [SerializeField] private TextMeshProUGUI powerNumber,speedNumber, staminaNumber; //Add TrainingSession text to hook up to UpdateTrainingSession function.
+    [SerializeField] private TextMeshProUGUI powerNumber,speedNumber, staminaNumber, sessionAmount;
+    public bool showStats = false;
+    [SerializeField] private GameObject statsHUDObject, trainCountObject;
 
     private void Awake()
     {
@@ -25,11 +27,24 @@ public class PersistentUI : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    void Start()
+    {
+        ToggleStatsHUD();
+    }
+
     // --- Scene loading helpers ---
 
     public void LoadScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
+    }
+
+    public void LoadMinigame(string sceneName)
+    {
+        if(DataHolder.Instance.isPlaying = false && DataHolder.Instance.trainSessions > 0)
+        {
+            SceneManager.LoadScene(sceneName);
+        }
     }
 
     // Call this from the minigame when it ends
@@ -73,8 +88,38 @@ public class PersistentUI : MonoBehaviour
         }
     }
 
-    public void ReduceTrainSessions()
+    public void ToggleStatsHUD()
     {
-        //sessionAmount.text = $"Days left until race: {DataHolder.Instance.trainSessions}";
+        if (showStats)
+        {
+            statsHUDObject.SetActive(true);
+            trainCountObject.SetActive(true);
+            if(DataHolder.Instance.isPlaying)
+            {
+                trainCountObject.SetActive(false);
+            }
+        }
+        else if(!showStats)
+        {
+            statsHUDObject.SetActive(false);
+            trainCountObject.SetActive(false);
+        }
+
+        Debug.Log($"Stats HUD is {showStats}");
+    }
+
+    public void SwitchStatsBool()
+    {
+        showStats = !showStats;
+    }
+
+    public void UpdateTrainSessions()
+    {
+        sessionAmount.text = $"Training Sessions Left: {DataHolder.Instance.trainSessions}";
+    }
+
+    public void ChangeTrainText()
+    {
+        sessionAmount.text = "Out of sessions. Race in the Prix of Hearts!";
     }
 }

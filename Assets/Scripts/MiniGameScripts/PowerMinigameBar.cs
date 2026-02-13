@@ -19,6 +19,7 @@ public class PowerMinigameBar : MonoBehaviour
         ShufflePowerMinigame();
         DataHolder.Instance.isPlaying = true;
         DataHolder.Instance.powTrain = true;
+        PersistentUI.instance.ToggleStatsHUD();
     }
 
     void Update()
@@ -73,6 +74,7 @@ public class PowerMinigameBar : MonoBehaviour
         }
         
         PersistentUI.instance.UpdateStatsUI();
+        DataHolder.Instance.ReduceTrainSessions();
 
         yield return new WaitForSeconds(3f);
 

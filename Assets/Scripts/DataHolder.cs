@@ -6,7 +6,7 @@ public class DataHolder : MonoBehaviour
 {
     public static DataHolder Instance;
 
-    public int petSpeed, petPower, petStamina, trainSessions;
+    public int petSpeed, petPower, petStamina, trainSessions = 5;
 
     public bool isPlaying, isRacing, powTrain, speedTrain, staTrain;
 
@@ -30,6 +30,19 @@ public class DataHolder : MonoBehaviour
         powTrain = false;
         speedTrain = false;
         staTrain = false;
+    }
+
+    public void StartGame()
+    {
+        petSpeed = 1;
+        petPower = 1;
+        petStamina = 1;
+        trainSessions = 5;
+    }
+
+    public void ResetTrainingSessions()
+    {
+        trainSessions = 5;
     }
 
     public void ReduceTrainSessions()

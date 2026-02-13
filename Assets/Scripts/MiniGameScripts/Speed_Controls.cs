@@ -22,6 +22,7 @@ public class Speed_Controls : MonoBehaviour
         DataHolder.Instance.isPlaying = true;
         isRight = true;
         UpdateNextArrows();
+        PersistentUI.instance.ToggleStatsHUD();
     }
 
     // Update is called once per frame
@@ -127,6 +128,7 @@ public class Speed_Controls : MonoBehaviour
         IncreaseSpeed(2);
 
         PersistentUI.instance.UpdateStatsUI();
+        DataHolder.Instance.ReduceTrainSessions();
 
         yield return new WaitForSeconds(3f);
 

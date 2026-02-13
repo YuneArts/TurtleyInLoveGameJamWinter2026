@@ -408,10 +408,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: DataHolder
       objectReference: {fileID: 0}
-    - target: {fileID: 7726145898640749922, guid: 3869cd3a377ea684f94603cd5c63567c, type: 3}
-      propertyPath: petSpeed
-      value: 5
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2128,18 +2124,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RacePlayerControls
   raceInput: {fileID: 1946673833}
-  raceStart: 0
-  isDashing: 0
   rb2d: {fileID: 1946673835}
   jumpHeight: 7
-  castDistance: 0.5
-  dashStamina: 0
-  maxStamina: 100
   staminaBar: {fileID: 1000334625}
   floorLayer:
     serializedVersion: 2
     m_Bits: 256
   boxSize: {x: 0.5, y: 0.5}
+  timerText: {fileID: 0}
 --- !u!4 &1946673832
 Transform:
   m_ObjectHideFlags: 0
