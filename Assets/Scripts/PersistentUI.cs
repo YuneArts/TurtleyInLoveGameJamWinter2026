@@ -32,13 +32,6 @@ public class PersistentUI : MonoBehaviour
         SceneManager.LoadScene(sceneName);
     }
 
-    // Call this when launching a minigame FROM gameplay
-    public void LoadMinigame(string minigameSceneName)
-    {
-        lastGameplayScene = SceneManager.GetActiveScene().name;
-        SceneManager.LoadScene(minigameSceneName);
-    }
-
     // Call this from the minigame when it ends
     public void ReturnToLastGameplayScene()
     {

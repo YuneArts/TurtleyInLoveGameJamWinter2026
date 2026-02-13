@@ -5,9 +5,12 @@ public class UIInteractionGate : MonoBehaviour
 {
     [Header("Assign the CanvasGroup on your MenuRoot")]
     [SerializeField] private CanvasGroup menuCanvasGroup;
+    [SerializeField] private GameObject hudGameObject;
 
     [Header("Scene name where UI should NOT be interactable")]
     [SerializeField] private string mainMenuSceneName = "TitleScreen";
+
+    private bool isMainMenuScene => SceneManager.GetActiveScene().name == mainMenuSceneName;
 
     private void Awake()
     {
@@ -29,11 +32,25 @@ public class UIInteractionGate : MonoBehaviour
     {
         // Apply immediately for the starting scene (important on boot).
         ApplyForScene(SceneManager.GetActiveScene().name);
+        toggleHUD(!isMainMenuScene);
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         ApplyForScene(scene.name);
+    }
+
+    public void toggleHUD(bool show)
+    {
+        if (hudGameObject == null) return;
+        if (show)
+        {
+            hudGameObject.SetActive(true);
+        }
+        else
+        {
+            hudGameObject.SetActive(false);
+        }
     }
 
     // Adjusts the menu's interactivity based on the scene name.
