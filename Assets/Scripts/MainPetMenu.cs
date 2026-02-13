@@ -20,6 +20,8 @@ public class MainPetMenu : MonoBehaviour
     IEnumerator MainScreenStartup()
     {
         DataHolder.Instance.ResetVariables();
+        DataHolder.Instance.TogglePersistentHUD();
+        //PersistentUI.instance.UpdateStatsUI();
         PersistentUI.instance.showStats = true;
         PersistentUI.instance.ToggleStatsHUD();
         PersistentUI.instance.UpdateTrainSessions();

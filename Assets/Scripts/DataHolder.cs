@@ -9,6 +9,7 @@ public class DataHolder : MonoBehaviour
     public int petSpeed, petPower, petStamina, trainSessions = 5;
 
     public bool isPlaying, isRacing, powTrain, speedTrain, staTrain;
+    [SerializeField] private GameObject persistentHUD;
 
     private void Awake()
     {
@@ -49,5 +50,19 @@ public class DataHolder : MonoBehaviour
     {
         trainSessions -= 1;
         //PersistentUI.instance.UpdateSessionCount();
+    }
+
+    public void TogglePersistentHUD()
+    {
+        if(isRacing)
+        {
+            persistentHUD.SetActive(false);
+            Debug.Log("HUD is disabled.");
+        }
+        else if(!isRacing)
+        {
+            persistentHUD.SetActive(true);
+            Debug.Log("HUD is active.");
+        }
     }
 }

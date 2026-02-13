@@ -41,9 +41,13 @@ public class PersistentUI : MonoBehaviour
 
     public void LoadMinigame(string sceneName)
     {
-        if(DataHolder.Instance.isPlaying = false && DataHolder.Instance.trainSessions > 0)
+        if(DataHolder.Instance.isPlaying == false && DataHolder.Instance.trainSessions > 0)
         {
             SceneManager.LoadScene(sceneName);
+        }
+        else
+        {
+            ChangeTrainText();
         }
     }
 
@@ -88,6 +92,13 @@ public class PersistentUI : MonoBehaviour
         }
     }
 
+    public void ResetStatsUI()
+    {
+        powerNumber.text = $"{DataHolder.Instance.petPower}";
+        speedNumber.text = $"{DataHolder.Instance.petSpeed}";
+        staminaNumber.text = $"{DataHolder.Instance.petStamina}";
+    }
+
     public void ToggleStatsHUD()
     {
         if (showStats)
@@ -105,7 +116,7 @@ public class PersistentUI : MonoBehaviour
             trainCountObject.SetActive(false);
         }
 
-        Debug.Log($"Stats HUD is {showStats}");
+        //Debug.Log($"Stats HUD is {showStats}");
     }
 
     public void SwitchStatsBool()

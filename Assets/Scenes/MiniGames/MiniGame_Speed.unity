@@ -755,7 +755,7 @@ MonoBehaviour:
   leftArrow: {fileID: 1403911433}
   rightArrow: {fileID: 922356063}
   progressBar: {fileID: 2019360149}
-  progress: 50
+  progress: 10
   progressDrain: 10
   maxProgress: 100
 --- !u!4 &1709615721

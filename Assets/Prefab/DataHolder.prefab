@@ -54,6 +54,7 @@ MonoBehaviour:
   powTrain: 0
   speedTrain: 0
   staTrain: 0
+  persistentHUD: {fileID: 7782016084294958391, guid: 96dc5b237e3f4614db2c2270703d6e59, type: 3}
 --- !u!1 &5634374218193366508
 GameObject:
   m_ObjectHideFlags: 0

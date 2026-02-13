@@ -7,7 +7,7 @@ public class StaminaBlocks : MonoBehaviour
     [SerializeField] private bool beingPushed;
 
     [SerializeField] private float moveSpeed;
-    [SerializeField] private LayerMask wallsLayer;
+    [SerializeField] private LayerMask wallsLayer, otherBlockLayer;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -59,7 +59,7 @@ public class StaminaBlocks : MonoBehaviour
 
     private bool CanBePushed(Vector3 blockMove)
     {
-        if(Physics2D.OverlapCircle(blockMove, 0.2f, wallsLayer) != null)
+        if(Physics2D.OverlapCircle(blockMove, 0.2f, wallsLayer) != null || Physics2D.OverlapCircle(blockMove, 0.2f, otherBlockLayer))
         {
             return false;
         }

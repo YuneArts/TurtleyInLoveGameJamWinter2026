@@ -156,3 +156,6 @@ MonoBehaviour:
   wallsLayer:
     serializedVersion: 2
     m_Bits: 64
+  otherBlockLayer:
+    serializedVersion: 2
+    m_Bits: 128

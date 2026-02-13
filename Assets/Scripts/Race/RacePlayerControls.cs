@@ -9,7 +9,7 @@ public class RacePlayerControls : MonoBehaviour
     private int speed, power, stamina;
     [SerializeField] private PlayerInput raceInput;
     private Vector2 moveDirection;
-    private bool raceStart, isDashing;
+    private bool raceStart = false, isDashing;
 
     [SerializeField] private Rigidbody2D rb2d;
     
@@ -25,13 +25,13 @@ public class RacePlayerControls : MonoBehaviour
     [SerializeField] private LayerMask floorLayer;
     [SerializeField] private Vector2 boxSize;
     private float raceTime;
-    [SerializeField] private TextMeshProUGUI timerText;
+    [SerializeField] private float goalTime;
+    [SerializeField] private TextMeshProUGUI timerText, goalTimerText;
 
     void Start()
     {
-        GetPetStats();
+        StartCoroutine(SetupRaceScene());
         //Set this boolean to true once countdown gets introduced. Possibly move this to DataHolder.
-        raceStart = true;
         dashStamina = maxStamina;
         //Sets direction in case the player dashes without moving left or right.
         lastDirection = 1f;
@@ -72,7 +72,26 @@ public class RacePlayerControls : MonoBehaviour
             {
                 ChargeDashStamina();
             }
+
+            if(raceStart)
+            {
+                UpdateRaceTimer();
+                SetRaceTimer();
+            }
         }
+    }
+
+    IEnumerator SetupRaceScene()
+    {
+        DataHolder.Instance.isRacing = true;
+        DataHolder.Instance.TogglePersistentHUD();
+        GetPetStats();
+        SetGoalTimer();
+        SetRaceTimer();
+        //Start countdown for beginning of race.
+        yield return new WaitForSeconds(3f);
+        //Enable bool to allow controls and start time after countdown ends.
+        raceStart = true;
     }
 
     private void GetPetStats()
@@ -80,6 +99,17 @@ public class RacePlayerControls : MonoBehaviour
         speed = DataHolder.Instance.petSpeed;
         power = DataHolder.Instance.petPower;
         stamina = DataHolder.Instance.petStamina;
+    }
+
+    private void SetRaceTimer()
+    {
+        timerText.text = string.Format("{0:#0.00}", raceTime);
+    }
+
+    private void SetGoalTimer()
+    {
+        //Add code here to determine new goal timer if multiple races are implemented into game.
+        goalTimerText.text = string.Format("Time to Beat: {0:#0.00}", goalTime);
     }
 
     public void Jump(InputAction.CallbackContext context)
@@ -102,7 +132,7 @@ public class RacePlayerControls : MonoBehaviour
     {
         if(context.performed)
         {
-            if(!isDashing && dashStamina == maxStamina)
+            if(!isDashing && dashStamina == maxStamina && raceStart)
             {
                 StartCoroutine(PerformDash());
             }  
@@ -130,7 +160,7 @@ public class RacePlayerControls : MonoBehaviour
         float originalGravity = rb2d.gravityScale;
         rb2d.gravityScale = 0f;
         //Dash duration, can plug in a float variable if desired.
-        yield return new WaitForSeconds(0.4f);
+        yield return new WaitForSeconds(0.5f);
         rb2d.gravityScale = originalGravity;
         isDashing = false;
         yield return null;
@@ -156,5 +186,41 @@ public class RacePlayerControls : MonoBehaviour
     private void UpdateRaceTimer()
     {
         raceTime += Time.deltaTime;
+
+        if(raceTime >= goalTime)
+        {
+            raceTime = goalTime;
+            raceStart = false;
+            StartCoroutine(GameOver());
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.CompareTag("Finish"))
+        {
+            Debug.Log("Touched Finish Collider.");
+            StartCoroutine(Victory());
+        }
+        else
+        {
+            Debug.Log("Touched non Finish Collider.");
+        }
+    }
+
+    private IEnumerator Victory()
+    {
+        raceStart = false;
+        Debug.Log("You Win! Restarting game and returning to MainPetScreen");
+        yield return new WaitForSeconds(3f);
+        DataHolder.Instance.StartGame();
+        PersistentUI.instance.ResetStatsUI();
+        PersistentUI.instance.LoadScene("MainPetScreen");
+    }
+    private IEnumerator GameOver()
+    {
+        Debug.Log("Game Over. Returning to MainPetScreen.");
+        yield return new WaitForSeconds(3f);
+        PersistentUI.instance.LoadScene("MainPetScreen");
     }
 }
