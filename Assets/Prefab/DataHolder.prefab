@@ -100,9 +100,57 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioManager
   sounds:
-  - name: 
-    clip: {fileID: 0}
-    volume: 0
+  - name: TitleTheme
+    clip: {fileID: 8300000, guid: 64d90ee4c608ef24aa3c9d1214fe73fa, type: 3}
+    volume: 1
+    pitch: 0
+    loop: 0
+    source: {fileID: 0}
+  - name: Power Minigame
+    clip: {fileID: 8300000, guid: d483d43600fa32048aa66ade56573aeb, type: 3}
+    volume: 1
+    pitch: 0
+    loop: 0
+    source: {fileID: 0}
+  - name: Speed Minigame
+    clip: {fileID: 8300000, guid: d483d43600fa32048aa66ade56573aeb, type: 3}
+    volume: 1
+    pitch: 0
+    loop: 0
+    source: {fileID: 0}
+  - name: Stamina Minigame
+    clip: {fileID: 8300000, guid: d483d43600fa32048aa66ade56573aeb, type: 3}
+    volume: 1
+    pitch: 0
+    loop: 0
+    source: {fileID: 0}
+  - name: Block Push
+    clip: {fileID: 8300000, guid: e02b83ab34bb7774f8acf586ed9d6a1c, type: 3}
+    volume: 1
+    pitch: 0
+    loop: 0
+    source: {fileID: 0}
+  - name: Button Click
+    clip: {fileID: 8300000, guid: 931d63559c510ef4ea391f887d430de9, type: 3}
+    volume: 1
+    pitch: 0
+    loop: 0
+    source: {fileID: 0}
+  - name: Dash
+    clip: {fileID: 8300000, guid: 6e3c2f79605f0394a8b91c1592325336, type: 3}
+    volume: 1
+    pitch: 0
+    loop: 0
+    source: {fileID: 0}
+  - name: Race Victory
+    clip: {fileID: 8300000, guid: b60c134b22974e844941084a88ea815e, type: 3}
+    volume: 1
+    pitch: 0
+    loop: 0
+    source: {fileID: 0}
+  - name: Training Complete
+    clip: {fileID: 8300000, guid: 8d07195edc1c3ca49bf9dad382316688, type: 3}
+    volume: 1
     pitch: 0
     loop: 0
     source: {fileID: 0}
