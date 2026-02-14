@@ -243,6 +243,28 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: turtle_6
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 936f3c4ad9fe9d64e888b3a147942c6b
+      internalID: 261907050
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -265,6 +287,7 @@ TextureImporter:
       turtle_3: 231807237200413646
       turtle_4: -3873956415563203196
       turtle_5: 20084680
+      turtle_6: 261907050
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
