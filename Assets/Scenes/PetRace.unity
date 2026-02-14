@@ -585,7 +585,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7726145898640749922, guid: 3869cd3a377ea684f94603cd5c63567c, type: 3}
       propertyPath: petSpeed
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6968,7 +6968,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   boxSize: {x: 0.5, y: 0.5}
-  goalTime: 3e+9
+  goalTime: 300
   timerText: {fileID: 1311118324}
   goalTimerText: {fileID: 433485224}
 --- !u!4 &1946673832
