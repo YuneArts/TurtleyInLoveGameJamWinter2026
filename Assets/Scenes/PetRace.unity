@@ -7699,7 +7699,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Countdown
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6c6c300e8ca47184581ae690fb30a8cd, type: 2}
   m_sharedMaterial: {fileID: 4474485746303593705, guid: 6c6c300e8ca47184581ae690fb30a8cd, type: 2}

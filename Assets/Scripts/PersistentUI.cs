@@ -10,9 +10,11 @@ public class PersistentUI : MonoBehaviour
     [Header("Scene Return")]
     [SerializeField] private string lastGameplayScene; // optional: visible for debugging in inspector
 
-    [SerializeField] private TextMeshProUGUI powerNumber,speedNumber, staminaNumber, sessionAmount;
+    [SerializeField] private TextMeshProUGUI powerNumber,speedNumber, staminaNumber, sessionAmount, miniGain;
     public bool showStats = false;
-    [SerializeField] private GameObject statsHUDObject, trainCountObject;
+    [SerializeField] private GameObject statsHUDObject, trainCountObject, minigameResult;
+    [SerializeField] private Sprite powerIcon, speedIcon, staIcon;
+    [SerializeField] private Image iconRender;
 
     private void Awake()
     {
@@ -74,16 +76,22 @@ public class PersistentUI : MonoBehaviour
         if(DataHolder.Instance.powTrain)
         {
             powerNumber.text = $"{DataHolder.Instance.petPower}";
+            //miniGain.text = $"+{DataHolder.Instance.petPower}";
+            iconRender.sprite = powerIcon;
             Debug.Log("Power UI updated.");
         }
         else if(DataHolder.Instance.speedTrain)
         {
             speedNumber.text = $"{DataHolder.Instance.petSpeed}";
+            //miniGain.text = $"+{DataHolder.Instance.petSpeed}";
+            iconRender.sprite = speedIcon;
             Debug.Log("Speed UI updated.");
         }
         else if(DataHolder.Instance.staTrain)
         {
             staminaNumber.text = $"{DataHolder.Instance.petStamina}";
+            //miniGain.text = $"+{DataHolder.Instance.petStamina}";
+            iconRender.sprite = staIcon;
             Debug.Log("Stamina UI updated.");
         }
         else
@@ -132,5 +140,38 @@ public class PersistentUI : MonoBehaviour
     public void ChangeTrainText()
     {
         sessionAmount.text = "Out of sessions. Race in the Prix of Hearts!";
+    }
+
+    public void EnableResultsPanel()
+    {
+        minigameResult.SetActive(true);
+    }
+
+    public void DisableResultsPanel()
+    {
+        minigameResult.SetActive(false);
+    }
+
+    
+    public void IncreasePower(int pwr)
+    {
+        DataHolder.Instance.petPower += pwr;
+        miniGain.text = $"+{pwr}";
+
+        //Debug.Log($"Power = {DataHolder.Instance.petPower}");
+    }
+
+    public void IncreaseSpeed(int spd)
+    {
+        DataHolder.Instance.petSpeed += spd;
+        miniGain.text = $"+{spd}";
+        Debug.Log($"Speed = {DataHolder.Instance.petSpeed}");
+    }
+
+    public void IncreaseStamina(int stam)
+    {
+        DataHolder.Instance.petStamina += stam;
+        miniGain.text = $"{stam}";
+        Debug.Log($"Stamina = {DataHolder.Instance.petStamina}");
     }
 }

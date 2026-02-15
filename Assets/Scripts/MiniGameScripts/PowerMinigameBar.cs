@@ -11,6 +11,7 @@ public class PowerMinigameBar : MonoBehaviour
     //private float direction;
     private RectTransform barTransform;
     private Vector3 targetPoisition;
+    [SerializeField] private GameObject button;
     //Add references to results screen. Will start disabled in scene editor and be enabled based on result in CheckResult function.
     void Start()
     {
@@ -20,6 +21,7 @@ public class PowerMinigameBar : MonoBehaviour
         DataHolder.Instance.isPlaying = true;
         DataHolder.Instance.powTrain = true;
         PersistentUI.instance.ToggleStatsHUD();
+        button.SetActive(true);
     }
 
     void Update()
@@ -62,29 +64,27 @@ public class PowerMinigameBar : MonoBehaviour
     {
         DataHolder.Instance.isPlaying = false;
 
+        button.SetActive(false);
+
         if (RectTransformUtility.RectangleContainsScreenPoint(safeZone, barTransform.position, null))
         {
-            IncreasePower(2);
+            PersistentUI.instance.IncreasePower(2);
             //Add results screen once we get that asset in. Can be referenced in here.
         }
         else
         {
-            IncreasePower(1);
+            PersistentUI.instance.IncreasePower(1);
             //Add result screen once we get that asset in. Can be referenced in here.
         }
         
         PersistentUI.instance.UpdateStatsUI();
+        PersistentUI.instance.EnableResultsPanel();
         DataHolder.Instance.ReduceTrainSessions();
 
         yield return new WaitForSeconds(3f);
 
+        //PersistentUI.instance.DisableResultsPanel();
         PersistentUI.instance.LoadScene("MainPetScreen");
         yield return null;
     } 
-
-    private void IncreasePower(int pwr)
-    {
-        DataHolder.Instance.petPower += pwr;
-        //Debug.Log($"Power = {DataHolder.Instance.petPower}");
-    }
 }

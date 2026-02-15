@@ -955,6 +955,7 @@ MonoBehaviour:
   pointB: {fileID: 603464999}
   safeZone: {fileID: 199862686}
   moveSpeed: 200
+  button: {fileID: 1251873984}
 --- !u!1001 &1591989560
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1003,46 +1004,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2332054236106777512, guid: 96dc5b237e3f4614db2c2270703d6e59, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 2796157600650146247, guid: 41ee9a6f000d4ca459c2ddd2cec79c8e, type: 3}
     - target: {fileID: 7782016084294958391, guid: 96dc5b237e3f4614db2c2270703d6e59, type: 3}
       propertyPath: m_Name
       value: UI_Persistent
-      objectReference: {fileID: 0}
-    - target: {fileID: 7782016084294958391, guid: 96dc5b237e3f4614db2c2270703d6e59, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8318410120301080302, guid: 96dc5b237e3f4614db2c2270703d6e59, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8318410120301080302, guid: 96dc5b237e3f4614db2c2270703d6e59, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8318410120301080302, guid: 96dc5b237e3f4614db2c2270703d6e59, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 8980641170894349522}
-    - target: {fileID: 8318410120301080302, guid: 96dc5b237e3f4614db2c2270703d6e59, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8318410120301080302, guid: 96dc5b237e3f4614db2c2270703d6e59, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: PlaySound
-      objectReference: {fileID: 0}
-    - target: {fileID: 8318410120301080302, guid: 96dc5b237e3f4614db2c2270703d6e59, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: AudioManager, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 8318410120301080302, guid: 96dc5b237e3f4614db2c2270703d6e59, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_StringArgument
-      value: button click
-      objectReference: {fileID: 0}
-    - target: {fileID: 8318410120301080302, guid: 96dc5b237e3f4614db2c2270703d6e59, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

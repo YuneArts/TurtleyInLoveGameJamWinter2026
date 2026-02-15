@@ -90,20 +90,15 @@ public class StaminaMiniGameMovement : MonoBehaviour
     {
         DataHolder.Instance.isPlaying = false;
 
-        IncreaseStamina(2);
+        PersistentUI.instance.IncreaseStamina(2);
 
         PersistentUI.instance.UpdateStatsUI();
+        PersistentUI.instance.EnableResultsPanel();
         DataHolder.Instance.ReduceTrainSessions();
 
         yield return new WaitForSeconds(3f);
 
         PersistentUI.instance.LoadScene("MainPetScreen");
         yield return null;
-    }
-
-    private void IncreaseStamina(int stam)
-    {
-        DataHolder.Instance.petStamina += stam;
-        Debug.Log($"Stamina = {DataHolder.Instance.petStamina}");
     }
 }

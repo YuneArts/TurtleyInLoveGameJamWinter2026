@@ -125,9 +125,10 @@ public class Speed_Controls : MonoBehaviour
     {
         DataHolder.Instance.isPlaying = false;
 
-        IncreaseSpeed(2);
+        PersistentUI.instance.IncreaseSpeed(2);
 
         PersistentUI.instance.UpdateStatsUI();
+        PersistentUI.instance.EnableResultsPanel();
         DataHolder.Instance.ReduceTrainSessions();
 
         yield return new WaitForSeconds(3f);
@@ -135,11 +136,5 @@ public class Speed_Controls : MonoBehaviour
         PersistentUI.instance.LoadScene("MainPetScreen");
 
         yield return null;
-    }
-
-    private void IncreaseSpeed(int spd)
-    {
-        DataHolder.Instance.petSpeed += spd;
-        Debug.Log($"Speed = {DataHolder.Instance.petSpeed}");
     }
 }
