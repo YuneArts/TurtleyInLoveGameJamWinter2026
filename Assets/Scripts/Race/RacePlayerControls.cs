@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.UI;
 using TMPro;
 
@@ -26,7 +27,10 @@ public class RacePlayerControls : MonoBehaviour
     [SerializeField] private Vector2 boxSize;
     private float raceTime;
     [SerializeField] private float goalTime;
-    [SerializeField] private TextMeshProUGUI timerText, goalTimerText;
+    [SerializeField] private TextMeshProUGUI timerText, goalTimerText, countdownText;
+    [SerializeField] private GameObject countdownObject;
+
+    private int countdownTime;
 
     void Start()
     {
@@ -83,15 +87,47 @@ public class RacePlayerControls : MonoBehaviour
 
     IEnumerator SetupRaceScene()
     {
+        raceStart = false;
         DataHolder.Instance.isRacing = true;
         DataHolder.Instance.TogglePersistentHUD();
         GetPetStats();
         SetGoalTimer();
         SetRaceTimer();
+        countdownTime = 3;
         //Start countdown for beginning of race.
+        StartCoroutine(StartCountdown());
+        //Make sure float in this return matches Countdown Time set above.
         yield return new WaitForSeconds(3f);
         //Enable bool to allow controls and start time after countdown ends.
         raceStart = true;
+        yield return new WaitForSeconds(1f);
+        countdownObject.SetActive(false);
+    }
+
+    IEnumerator StartCountdown()
+    {
+        while(countdownTime > 0)
+        {
+            SetCountdownTimer();
+
+            yield return new WaitForSeconds(1f);
+
+            countdownTime --;
+        }
+
+        SetCountdownTimer();
+    }
+
+    private void SetCountdownTimer()
+    {
+        if(countdownTime > 0)
+        {
+            countdownText.text = $"{countdownTime}";
+        }
+        else if(countdownTime <= 0)
+        {
+            countdownText.text = "Go!";
+        }
     }
 
     private void GetPetStats()
