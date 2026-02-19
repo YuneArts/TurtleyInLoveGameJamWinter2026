@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
 using System.Collections.Generic;
@@ -33,6 +33,7 @@ public class RacePlayerControls : MonoBehaviour
     private bool isRunning, isJumping, isIdle;
 
     private int countdownTime;
+    private bool isFacingRight = true;
 
     void Start()
     {
@@ -47,20 +48,25 @@ public class RacePlayerControls : MonoBehaviour
     {
         if(raceStart)
         {
+            bool grounded = IsGrounded();
             //Detects if Movement InputAction reads any changes to the Vector2 tied to the bindings.
-            if(moveDirection != Vector2.zero)
+            if (moveDirection != Vector2.zero)
             {
                 isIdle = false;
-
                 if (!isDashing)
                 {
+                    isRunning = true;
+                    petAnimator.SetBool("isRunning", isRunning);
                     //Normal player movement.
                     rb2d.linearVelocity = new Vector2(moveDirection.x * speed, rb2d.linearVelocity.y);
                     //Records X axis/direction player last registered to line up dash.
                     lastDirection = moveDirection.x;
+                    Flip(moveDirection.x);
                 }
                 else
                 {
+                    isRunning = false;
+                    petAnimator.SetBool("isDashing", isDashing);
                     //Allows for dashing while holding forward/back direction. Doesn't allow for turning mid-air.
                     rb2d.linearVelocity = new Vector2(lastDirection * (speed + (power + 3)), 0f);
                 }
@@ -72,11 +78,14 @@ public class RacePlayerControls : MonoBehaviour
             }
             else if(moveDirection == Vector2.zero)
             {
+                isDashing = false;
+                isRunning = false;
                 isIdle = true;
                 petAnimator.SetBool("isIdle", isIdle);
             }
-            else
+            else if (isDashing)
             {
+                isDashing = true;
                 petAnimator.SetBool("isDashing", isDashing);
                 //Uses last registered X value from player inputs to determine direction while forward/back direction isn't being pressed. 3 being added with Power can be changed.
                 rb2d.linearVelocity = new Vector2(lastDirection * (speed + (power + 3)), 0f);
@@ -85,19 +94,15 @@ public class RacePlayerControls : MonoBehaviour
             if(dashStamina < maxStamina)
             {
                 ChargeDashStamina();
-            }
-
-            if(IsGrounded() && isJumping)
-            {
-                isJumping = false;
-                petAnimator.SetBool("isJumping", isJumping);
-            }
+            } 
 
             if (raceStart)
             {
                 UpdateRaceTimer();
                 SetRaceTimer();
             }
+
+            UpdateAnimatorBools(grounded);
         }
     }
 
@@ -180,8 +185,6 @@ public class RacePlayerControls : MonoBehaviour
 
     public void Movement(InputAction.CallbackContext context)
     {
-        isRunning = true;
-        petAnimator.SetBool("isRunning", isRunning);
         moveDirection = context.ReadValue<Vector2>();
     }
 
@@ -281,5 +284,40 @@ public class RacePlayerControls : MonoBehaviour
         Debug.Log("Game Over. Returning to MainPetScreen.");
         yield return new WaitForSeconds(3f);
         PersistentUI.instance.LoadScene("MainPetScreen");
+    }
+
+    private void Flip(float direction)
+    {
+        if (direction == 0) return;
+
+        bool shouldFaceRight = direction > 0;
+
+        if (shouldFaceRight != isFacingRight)
+        {
+            isFacingRight = shouldFaceRight;
+
+            Vector3 scale = transform.localScale;
+            scale.x *= -1;
+            transform.localScale = scale;
+        }
+    }
+
+    private void UpdateAnimatorBools(bool grounded)
+    {
+        bool moving = moveDirection != Vector2.zero;
+
+        // jumping is simply "not grounded"
+        isJumping = !grounded;
+
+        // running only if grounded, moving, and not dashing
+        isRunning = grounded && moving && !isDashing;
+
+        // idle only if grounded, not moving, and not dashing
+        isIdle = grounded && !moving && !isDashing;
+
+        petAnimator.SetBool("isDashing", isDashing);
+        petAnimator.SetBool("isJumping", isJumping);
+        petAnimator.SetBool("isRunning", isRunning);
+        petAnimator.SetBool("isIdle", isIdle);
     }
 }
