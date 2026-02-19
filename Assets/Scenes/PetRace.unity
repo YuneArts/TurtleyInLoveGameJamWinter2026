@@ -7847,6 +7847,7 @@ MonoBehaviour:
   goalTimerText: {fileID: 433485224}
   countdownText: {fileID: 1937014519}
   countdownObject: {fileID: 2040701266}
+  petAnimator: {fileID: 1324010768}
 --- !u!4 &1946673832
 Transform:
   m_ObjectHideFlags: 0

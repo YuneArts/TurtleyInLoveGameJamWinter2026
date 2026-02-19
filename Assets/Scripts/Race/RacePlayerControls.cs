@@ -29,6 +29,8 @@ public class RacePlayerControls : MonoBehaviour
     [SerializeField] private float goalTime;
     [SerializeField] private TextMeshProUGUI timerText, goalTimerText, countdownText;
     [SerializeField] private GameObject countdownObject;
+    [SerializeField] public Animator petAnimator;
+    private bool isRunning, isJumping, isIdle;
 
     private int countdownTime;
 
@@ -48,7 +50,9 @@ public class RacePlayerControls : MonoBehaviour
             //Detects if Movement InputAction reads any changes to the Vector2 tied to the bindings.
             if(moveDirection != Vector2.zero)
             {
-                if(!isDashing)
+                isIdle = false;
+
+                if (!isDashing)
                 {
                     //Normal player movement.
                     rb2d.linearVelocity = new Vector2(moveDirection.x * speed, rb2d.linearVelocity.y);
@@ -66,8 +70,14 @@ public class RacePlayerControls : MonoBehaviour
                 //Turns horizontal velocity off while letting vertical movement persist. Allows more percise left/right movement in the air.
                 rb2d.linearVelocity = new Vector2(0, rb2d.linearVelocity.y);
             }
+            else if(moveDirection == Vector2.zero)
+            {
+                isIdle = true;
+                petAnimator.SetBool("isIdle", isIdle);
+            }
             else
             {
+                petAnimator.SetBool("isDashing", isDashing);
                 //Uses last registered X value from player inputs to determine direction while forward/back direction isn't being pressed. 3 being added with Power can be changed.
                 rb2d.linearVelocity = new Vector2(lastDirection * (speed + (power + 3)), 0f);
             }
@@ -77,7 +87,13 @@ public class RacePlayerControls : MonoBehaviour
                 ChargeDashStamina();
             }
 
-            if(raceStart)
+            if(IsGrounded() && isJumping)
+            {
+                isJumping = false;
+                petAnimator.SetBool("isJumping", isJumping);
+            }
+
+            if (raceStart)
             {
                 UpdateRaceTimer();
                 SetRaceTimer();
@@ -154,13 +170,18 @@ public class RacePlayerControls : MonoBehaviour
         {
             if(IsGrounded())
             {
+                isJumping = true;
+                petAnimator.SetBool("isJumping", isJumping);
                 rb2d.linearVelocity = new Vector2(rb2d.linearVelocity.x, jumpHeight);
             }
+
         }
     }
 
     public void Movement(InputAction.CallbackContext context)
     {
+        isRunning = true;
+        petAnimator.SetBool("isRunning", isRunning);
         moveDirection = context.ReadValue<Vector2>();
     }
 
@@ -192,6 +213,7 @@ public class RacePlayerControls : MonoBehaviour
         //Deplete stamina bar
         UseDashStamina();
         isDashing = true;
+        petAnimator.SetBool("isDashing", isDashing);
         //Record gravity setting of Rigidbody2D to reset it to original value later.
         float originalGravity = rb2d.gravityScale;
         rb2d.gravityScale = 0f;
@@ -199,6 +221,7 @@ public class RacePlayerControls : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         rb2d.gravityScale = originalGravity;
         isDashing = false;
+        petAnimator.SetBool("isDashing", isDashing);
         yield return null;
     }
 
