@@ -61,6 +61,7 @@ public class StaminaBlocks : MonoBehaviour
     {
         if(Physics2D.OverlapCircle(blockMove, 0.2f, wallsLayer) != null || Physics2D.OverlapCircle(blockMove, 0.2f, otherBlockLayer))
         {
+            pushDirection = Vector2.zero;
             return false;
         }
 

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class StaminaManager : MonoBehaviour
 {
@@ -15,5 +16,13 @@ public class StaminaManager : MonoBehaviour
     {
         int levelIndex = Random.Range(0, levels.Length);
         levels[levelIndex].SetActive(true);
+    }
+
+    public void ReloadLevel(string levelName)
+    {
+        if(DataHolder.Instance.isPlaying)
+        {
+            SceneManager.LoadScene(levelName);
+        }
     }
 }

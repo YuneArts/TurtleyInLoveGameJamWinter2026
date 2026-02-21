@@ -28,7 +28,7 @@ public class RacePlayerControls : MonoBehaviour
     private float raceTime;
     [SerializeField] private float goalTime;
     [SerializeField] private TextMeshProUGUI timerText, goalTimerText, countdownText;
-    [SerializeField] private GameObject countdownObject;
+    [SerializeField] private GameObject countdownObject, victoryObject, defeatObject;
     [SerializeField] public Animator petAnimator;
     private bool isRunning, isJumping, isIdle;
 
@@ -42,6 +42,8 @@ public class RacePlayerControls : MonoBehaviour
         dashStamina = maxStamina;
         //Sets direction in case the player dashes without moving left or right.
         lastDirection = 1f;
+        victoryObject.SetActive(false);
+        defeatObject.SetActive(false);
     }
 
     void Update()
@@ -173,7 +175,7 @@ public class RacePlayerControls : MonoBehaviour
     {
         if(context.performed)
         {
-            if(IsGrounded())
+            if(IsGrounded() && raceStart)
             {
                 isJumping = true;
                 petAnimator.SetBool("isJumping", isJumping);
@@ -273,17 +275,23 @@ public class RacePlayerControls : MonoBehaviour
     private IEnumerator Victory()
     {
         raceStart = false;
-        Debug.Log("You Win! Restarting game and returning to MainPetScreen");
-        yield return new WaitForSeconds(3f);
+        victoryObject.SetActive(true);
+        //Debug.Log("You Win! Restarting game and returning to MainPetScreen");
+        //yield return new WaitForSeconds(3f);
         DataHolder.Instance.StartGame();
         PersistentUI.instance.ResetStatsUI();
-        PersistentUI.instance.LoadScene("MainPetScreen");
+        //PersistentUI.instance.LoadScene("MainPetScreen");
+        yield return null;
     }
     private IEnumerator GameOver()
     {
-        Debug.Log("Game Over. Returning to MainPetScreen.");
-        yield return new WaitForSeconds(3f);
-        PersistentUI.instance.LoadScene("MainPetScreen");
+        defeatObject.SetActive(true);
+        //Debug.Log("Game Over. Returning to MainPetScreen.");
+        DataHolder.Instance.StartGame();
+        PersistentUI.instance.ResetStatsUI();
+        //yield return new WaitForSeconds(3f);
+        //PersistentUI.instance.LoadScene("MainPetScreen");
+        yield return null;
     }
 
     private void Flip(float direction)
